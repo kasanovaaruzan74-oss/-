@@ -1,0 +1,82 @@
+{
+  "started_at_utc": "2026-11-25T09:05:31+00:00",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "visible_process_cpus": 5,
+  "packages": {
+    "fastapi": "0.141.1",
+    "sqlmodel": "0.0.50",
+    "uvicorn": "0.52.1",
+    "locust": "2.47.0",
+    "psutil": "7.2.2"
+  },
+  "server_workers": 1,
+  "authenticated": false,
+  "scenarios": [
+    {
+      "users": 5,
+      "duration_seconds": 60,
+      "requests": 588,
+      "failures": 0,
+      "failure_percent": 0.0,
+      "mean_ms": 3.1695550323126063,
+      "p50_ms": 3.0,
+      "p95_ms": 5.0,
+      "requests_per_second": 9.967859919133712,
+      "mean_cpu_percent": 2.1475409836065573,
+      "peak_cpu_percent": 4.0,
+      "mean_rss_mib": 60.785311475409834,
+      "peak_rss_mib": 60.855
+    },
+    {
+      "users": 20,
+      "duration_seconds": 120,
+      "requests": 4743,
+      "failures": 0,
+      "failure_percent": 0.0,
+      "mean_ms": 3.556950431583257,
+      "p50_ms": 3.0,
+      "p95_ms": 7.0,
+      "requests_per_second": 39.808201203269775,
+      "mean_cpu_percent": 8.525619834710744,
+      "peak_cpu_percent": 18.0,
+      "mean_rss_mib": 63.92598347107438,
+      "peak_rss_mib": 64.215
+    },
+    {
+      "users": 50,
+      "duration_seconds": 180,
+      "requests": 17159,
+      "failures": 0,
+      "failure_percent": 0.0,
+      "mean_ms": 17.562262796200415,
+      "p50_ms": 3.0,
+      "p95_ms": 22.0,
+      "requests_per_second": 95.63932946174712,
+      "mean_cpu_percent": 19.858888888888888,
+      "peak_cpu_percent": 44.0,
+      "mean_rss_mib": 71.65733333333333,
+      "peak_rss_mib": 78.414
+    },
+    {
+      "users": 100,
+      "duration_seconds": 180,
+      "requests": 3219,
+      "failures": 3200,
+      "failure_percent": 99.40975458216838,
+      "mean_ms": 4981.4566422823855,
+      "p50_ms": 5000.0,
+      "p95_ms": 5100.0,
+      "requests_per_second": 18.13877960463257,
+      "mean_cpu_percent": 3.278453038674033,
+      "peak_cpu_percent": 50.0,
+      "mean_rss_mib": 126.1249226519337,
+      "peak_rss_mib": 170.281
+    }
+  ],
+  "source_commit": "2153fe0637cad95815d97bb04e648a32b2c6ac66",
+  "cpu_affinity_note": "Originally 5 visible CPUs. Pinned to CPUs 0 and 1 near the end of the 20-user scenario.",
+  "sqlite_pool": "QueuePool",
+  "container_cpu_quota": 4,
+  "container_memory_limit_mib": 16384
+}

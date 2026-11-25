@@ -1,0 +1,3 @@
+Контрольный фрагмент журнала Uvicorn · 100 пользователей · до исправления
+
+sqlalchemy.exc.TimeoutError: QueuePool limit of size 5 overflow 10 reached, connection timed out, timeout 30.00 (Background on this error at: https://sqlalche.me/e/21/3o7r)

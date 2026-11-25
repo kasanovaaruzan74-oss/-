@@ -1,0 +1,4 @@
+Method,Name,Error,Occurrences,First Seen,Last Seen
+GET,/documents/lookups,"ReadTimeout(ReadTimeoutError(""HTTPConnectionPool(host='127.0.0.1', port=41427): Read timed out. (read timeout=5)""))",621,2026-11-25T09:11:41Z,2026-11-25T09:14:33Z
+GET,/documents?status_code=REGISTERED,"ReadTimeout(ReadTimeoutError(""HTTPConnectionPool(host='127.0.0.1', port=41427): Read timed out. (read timeout=5)""))",935,2026-11-25T09:11:41Z,2026-11-25T09:14:33Z
+GET,/documents,"ReadTimeout(ReadTimeoutError(""HTTPConnectionPool(host='127.0.0.1', port=41427): Read timed out. (read timeout=5)""))",1644,2026-11-25T09:11:41Z,2026-11-25T09:14:33Z

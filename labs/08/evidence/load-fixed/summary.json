@@ -1,0 +1,50 @@
+{
+  "started_at_utc": "2026-11-25T09:16:41+00:00",
+  "python": "3.12.14",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "visible_process_cpus": 2,
+  "packages": {
+    "fastapi": "0.141.1",
+    "sqlmodel": "0.0.50",
+    "uvicorn": "0.52.1",
+    "locust": "2.47.0",
+    "psutil": "7.2.2"
+  },
+  "server_workers": 1,
+  "authenticated": true,
+  "scenarios": [
+    {
+      "users": 100,
+      "duration_seconds": 180,
+      "requests": 34894,
+      "failures": 0,
+      "failure_percent": 0.0,
+      "mean_ms": 14.023473337880139,
+      "p50_ms": 7.0,
+      "p95_ms": 38.0,
+      "requests_per_second": 194.6600588882812,
+      "mean_cpu_percent": 62.04696132596685,
+      "peak_cpu_percent": 78.9,
+      "mean_rss_mib": 92.3012541436464,
+      "peak_rss_mib": 96.891
+    }
+  ],
+  "app_source_sha256": {
+    "app/__init__.py": "35e7a2548d84eaf2067682532a7641af9f88f6d92b341f084e505a55284eb669",
+    "app/database/__init__.py": "745ed36c9d97bc8fe86c6f1e0266fdb2041acddf54d79d6d11302c676dabd499",
+    "app/database/db.py": "88e8af585ff6b783fcaadddf44bcab131761a24f76f9d61eeb092b571c04003a",
+    "app/database/models.py": "e146e28cfab754befd72ba9b8a6c4f7384cce812dfc04994f28a7c09374ab896",
+    "app/database/seed.py": "2fc215018915fa46951f6a37de0ac34aa8d12d5399a36ce0de9cce5b3f927c8b",
+    "app/frontend/__init__.py": "bc5008176010ae08052d0087dd1412cf50c6053d2eae8231a1ba551620899580",
+    "app/frontend/ui.py": "f75c5bb6c08dfc8f17ee8bef530c92e313aea70ed2ba3fef9408b6bc28dd0ca3",
+    "app/main.py": "f3bfdfc7b2bae69477958d795e739647ca5373029fa63c64bd372022c39b25f9",
+    "app/routers/__init__.py": "4c0b5eb9958ba3883b03d5e85f87643f37a63dd09879dbcfc5dd313947e9e5d3",
+    "app/routers/auth.py": "94276d110c3c7b6e9e9d70b36a3f2bb7dc55af5d59964194f7232fb0670da2f2",
+    "app/routers/documents.py": "96fe503c3ec4af99450d31030a3f592e88d9cc0d0f9dfcbc646c4d8b432d86f6",
+    "app/security.py": "f1ce005b3a523a7e3fea50f714add6c1e2627748845f6d86aaf551e4a2e4ab63"
+  },
+  "cpu_affinity_note": "CPUs 0 and 1.",
+  "sqlite_pool": "NullPool",
+  "container_cpu_quota": 4,
+  "container_memory_limit_mib": 16384
+}

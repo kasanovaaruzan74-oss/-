@@ -75,6 +75,10 @@ def read_token(host, authenticated):
 
 
 def check_read_routes(host, token):
+    if token:
+        response = requests.get(f"{host}/documents", timeout=10)
+        if response.status_code not in {401, 403}:
+            raise RuntimeError("The load app did not enforce authentication.")
     headers = {"Authorization": f"Bearer {token}"} if token else {}
     for path in ("/documents", "/documents/lookups"):
         response = requests.get(f"{host}{path}", headers=headers, timeout=10)
@@ -144,12 +148,16 @@ def main():
     parser.add_argument("--output", type=Path, required=True, help="Directory for Locust CSV and process metrics.")
     parser.add_argument("--app-root", type=Path, default=APP_ROOT, help="Directory that contains the app package.")
     parser.add_argument("--authenticated", action="store_true", help="Enable the lab 8 access controls.")
-    parser.add_argument("--smoke", action="store_true", help="Run a single short check before the full benchmark.")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--users", type=int, choices=(5, 20, 50, 100), help="Repeat one measured scenario.")
+    selection.add_argument("--smoke", action="store_true", help="Run a single short check before the full benchmark.")
     args = parser.parse_args()
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
 
-    scenarios = ((5, 5),) if args.smoke else SCENARIOS
+    scenarios = ((5, 5),) if args.smoke else tuple(
+        scenario for scenario in SCENARIOS if args.users is None or scenario[0] == args.users
+    )
     metadata = {
         "started_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "python": platform.python_version(),
