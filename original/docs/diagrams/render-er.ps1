@@ -1,4 +1,4 @@
-Add-Type -AssemblyName System.Drawing
+﻿Add-Type -AssemblyName System.Drawing
 
 $outputPath = Join-Path $PSScriptRoot 'deanflow-er.png'
 $bitmap = [System.Drawing.Bitmap]::new(1800, 1200)
