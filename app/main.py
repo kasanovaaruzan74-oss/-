@@ -50,7 +50,7 @@ def create_app(database_engine: Engine = engine, *, auth_required: bool | None =
 
     @application.get("/health", tags=["Жүйе"])
     def health() -> dict[str, str]:
-        return {"күйі": "жұмыс істеп тұр"}
+        return {"күйі": "контрольная ошибка"}
 
     return application
 
