@@ -1,0 +1,12 @@
+GitHub Actions · Python Tests #3
+https://github.com/kasanovaaruzan74-oss/-/actions/runs/45583080543/job/139097713899
+Ветка: lab08-ci-check
+Коммит: c3901878eee8401487e34fb7e9e94c22a50928a2
+
+2026-11-25T09:12:18.5537650Z tests/test_lab08_health.py::test_health_response_contract FAILED         [100%]
+2026-11-25T09:12:18.5539277Z ________________________ test_health_response_contract _________________________
+2026-11-25T09:12:18.5540859Z     def test_health_response_contract(client: TestClient):
+2026-11-25T09:12:18.5544094Z E       AssertionError: assert {'күйі': 'контрольная ошибка'} == {'күйі': 'жұмыс істеп тұр'}
+2026-11-25T09:12:18.5547160Z tests/test_lab08_health.py:8: AssertionError
+2026-11-25T09:12:18.5549087Z FAILED tests/test_lab08_health.py::test_health_response_contract - AssertionError: assert {'күйі': 'контрольная ошибка'} == {'күйі': 'жұмыс істеп тұр'}
+2026-11-25T09:12:18.5552236Z ========================= 1 failed, 29 passed in 8.14s =========================

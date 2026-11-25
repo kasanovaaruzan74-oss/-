@@ -1,0 +1,69 @@
+{
+  "id": 45583419404,
+  "name": "Python Tests",
+  "status": "completed",
+  "conclusion": "success",
+  "event": "push",
+  "head_branch": "lab08-ci-check",
+  "head_sha": "5e56270d72999a1af64a3d596b25f31dc8e4a840",
+  "run_number": 4,
+  "run_started_at": "2026-11-25T09:13:52Z",
+  "updated_at": "2026-11-25T09:14:32Z",
+  "html_url": "https://github.com/kasanovaaruzan74-oss/-/actions/runs/45583419404",
+  "jobs": [
+    {
+      "name": "test",
+      "conclusion": "success",
+      "html_url": "https://github.com/kasanovaaruzan74-oss/-/actions/runs/45583419404/job/139098866104",
+      "steps": [
+        {
+          "name": "Set up job",
+          "conclusion": "success"
+        },
+        {
+          "name": "Checkout repository",
+          "conclusion": "success"
+        },
+        {
+          "name": "Set up Python",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install project dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Test API, authentication, and database transactions",
+          "conclusion": "success"
+        },
+        {
+          "name": "Static check of application code",
+          "conclusion": "success"
+        },
+        {
+          "name": "Save pytest report",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Set up Python",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Checkout repository",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 15006379469,
+      "name": "pytest-report",
+      "expired": false
+    }
+  ]
+}

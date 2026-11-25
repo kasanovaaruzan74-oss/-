@@ -1,6 +1,7 @@
 # Информационная система «Деканат» · DeanFlow
 
 **Курс:** Прикладное программное обеспечение информационных систем (2026 г.)
+
 **Автор:** Касанова Аружан, группа ИС-24А
 
 ## 1. Предметная область
@@ -42,7 +43,7 @@ DeanFlow помогает сотрудникам университетског�
 | Проверка | pytest, FastAPI TestClient, Locust, Bandit, GitHub Actions |
 | Подготовка и ревью | OpenAI Codex |
 
-Основные точки входа: [сервер](app/main.py), [ORM](app/database/models.py), [начальные данные](app/database/seed.py), [маршруты](app/routers/documents.py), [интерфейс](app/frontend/ui.py), [тесты](tests/). [Изначальная версия DeanFlow на ASP.NET Core MVC и SQL Server](original/) использует отдельную базу.
+Основные точки входа: [сервер](app/main.py), [ORM](app/database/models.py), [начальные данные](app/database/seed.py), [маршруты](app/routers/documents.py), [интерфейс](app/frontend/ui.py), [тесты](tests/). [Изначальная версия DeanFlow на ASP.NET Core MVC и SQL Server](original/) использует отдельную базу. [Результат сборки и запуска исходной версии](original/docs/verification.md).
 
 ## 4. Локальное развёртывание
 

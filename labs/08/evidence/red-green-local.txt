@@ -8,11 +8,11 @@ client = <starlette.testclient.TestClient object at 0x7f30a0d64bc0>
 
     def test_health_response_contract(client: TestClient):
         response = client.get("/health")
-    
+
         assert response.status_code == 200
 >       assert response.json() == {"күйі": "жұмыс істеп тұр"}
 E       AssertionError: assert {'күйі': 'контрольная ошибка'} == {'күйі': 'жұмыс істеп тұр'}
-E         
+E
 E         Differing items:
 E         {'күйі': 'контрольная ошибка'} != {'күйі': 'жұмыс істеп тұр'}
 E         Use -v to get more diff
