@@ -1,0 +1,40 @@
+# .NET / Visual Studio
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.sln.docstates
+
+# Жергілікті деректер мен құпия баптаулар
+App_Data/
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite
+*.sqlite3
+
+# Python оқу ортасы және кэштер
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+htmlcov/
+.coverage*
+
+# Құрылым және редактор файлдары
+build/
+dist/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Үшінші тарап кітапханаларының әзірлеушіге арналған карталары
+wwwroot/lib/**/*.map

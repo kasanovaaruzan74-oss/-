@@ -1,0 +1,40 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-8.4.2, pluggy-1.7.0 -- /workspace/work/venv/bin/python
+cachedir: .pytest_cache
+rootdir: /workspace/work/project
+plugins: anyio-4.16.0, locust-2.47.0
+collecting ... collected 30 items
+
+tests/test_documents_api.py::test_list_documents_returns_a_list PASSED   [  3%]
+tests/test_documents_api.py::test_create_document_and_read_it PASSED     [  6%]
+tests/test_documents_api.py::test_invalid_document_data_is_rejected PASSED [ 10%]
+tests/test_documents_api.py::test_status_filter_returns_only_matching_documents PASSED [ 13%]
+tests/test_documents_api.py::test_unknown_document_id_returns_404_for_read_update_and_delete PASSED [ 16%]
+tests/test_documents_api.py::test_patch_changes_only_the_sent_field_and_delete_returns_404_afterward PASSED [ 20%]
+tests/test_documents_api.py::test_search_treats_input_as_data_not_sql PASSED [ 23%]
+tests/test_lab08_api.py::test_list_documents_returns_json PASSED         [ 26%]
+tests/test_lab08_api.py::test_create_document_assigns_authenticated_creator PASSED [ 30%]
+tests/test_lab08_api.py::test_put_replaces_mutable_fields PASSED         [ 33%]
+tests/test_lab08_api.py::test_delete_requires_administrator_and_removes_document PASSED [ 36%]
+tests/test_lab08_api.py::test_missing_document_id_returns_404 PASSED     [ 40%]
+tests/test_lab08_api.py::test_empty_document_payload_is_rejected PASSED  [ 43%]
+tests/test_lab08_api.py::test_malformed_json_is_rejected_without_reflecting_body PASSED [ 46%]
+tests/test_lab08_api.py::test_document_title_accepts_boundary_lengths[min-length] PASSED [ 50%]
+tests/test_lab08_api.py::test_document_title_accepts_boundary_lengths[max-length] PASSED [ 53%]
+tests/test_lab08_api.py::test_document_title_rejects_invalid_lengths[blank] PASSED [ 56%]
+tests/test_lab08_api.py::test_document_title_rejects_invalid_lengths[too-long] PASSED [ 60%]
+tests/test_lab08_api.py::test_register_rejects_empty_or_weak_password[empty] PASSED [ 63%]
+tests/test_lab08_api.py::test_register_rejects_empty_or_weak_password[weak] PASSED [ 66%]
+tests/test_lab08_api.py::test_wrong_login_rejects_account_and_redacts_credentials PASSED [ 70%]
+tests/test_lab08_api.py::test_document_routes_require_authentication PASSED [ 73%]
+tests/test_lab08_api.py::test_registered_executor_cannot_delete_document PASSED [ 76%]
+tests/test_lab08_api.py::test_successful_authentication_exposes_only_public_identity PASSED [ 80%]
+tests/test_lab08_api.py::test_administrator_receives_404_for_unknown_user PASSED [ 83%]
+tests/test_lab08_api.py::test_logout_revokes_access_to_protected_resources PASSED [ 86%]
+tests/test_lab08_api.py::test_password_and_token_are_saved_only_as_hashes PASSED [ 90%]
+tests/test_lab08_database.py::test_database_persists_document_crud_between_sessions PASSED [ 93%]
+tests/test_lab08_database.py::test_database_rolls_back_previously_flushed_insert_after_constraint_error PASSED [ 96%]
+tests/test_lab08_health.py::test_health_response_contract PASSED         [100%]
+
+--- generated xml file: /workspace/work/project/labs/08/evidence/pytest.xml ----
+============================== 30 passed in 9.08s ==============================

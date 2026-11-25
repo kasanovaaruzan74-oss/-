@@ -1,0 +1,220 @@
+[
+  {
+    "scenario": "Пустой пароль",
+    "method": "POST",
+    "path": "/auth/register",
+    "status": 400,
+    "response": {
+      "detail": "Некорректные данные запроса. Проверьте обязательные поля и формат."
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Слабый пароль",
+    "method": "POST",
+    "path": "/auth/register",
+    "status": 400,
+    "response": {
+      "detail": "Некорректные данные запроса. Проверьте обязательные поля и формат."
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Неизвестный логин",
+    "method": "POST",
+    "path": "/auth/login",
+    "status": 401,
+    "response": {
+      "detail": "Требуется вход или указаны неверные данные."
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Регистрация исполнителя",
+    "method": "POST",
+    "path": "/auth/register",
+    "status": 201,
+    "response": {
+      "user_id": 4,
+      "email": "lab08-b64c0971ea@example.invalid",
+      "full_name": "Учебный исполнитель",
+      "role": "Executor"
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Чтение профиля исполнителя",
+    "method": "GET",
+    "path": "/auth/me",
+    "status": 200,
+    "response": {
+      "user_id": 4,
+      "email": "lab08-b64c0971ea@example.invalid",
+      "full_name": "Учебный исполнитель",
+      "role": "Executor"
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Доступ без токена",
+    "method": "GET",
+    "path": "/documents",
+    "status": 401,
+    "response": {
+      "detail": "Требуется вход или указаны неверные данные."
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Неизвестный идентификатор пользователя",
+    "method": "GET",
+    "path": "/auth/users/999999",
+    "status": 404,
+    "response": {
+      "detail": "Пользователь не найден."
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Чтение списка документов",
+    "method": "GET",
+    "path": "/documents?limit=1",
+    "status": 200,
+    "response": [
+      {
+        "document_id": 1,
+        "registration_number": "DF-DEMO-0001",
+        "document_type_id": 1,
+        "status_id": 2,
+        "department_id": 1,
+        "created_by_user_id": 1,
+        "title": "Студенттің анықтама беру туралы өтініші",
+        "description": "Оқу мақсатындағы үлгі дерек.",
+        "direction": "Ішкі",
+        "priority": "Жоғары",
+        "registered_at": "2026-11-24T09:09:22.248523Z",
+        "due_date": "2026-12-01",
+        "completed_at": null,
+        "is_archived": false
+      }
+    ],
+    "passed": true
+  },
+  {
+    "scenario": "Создание документа",
+    "method": "POST",
+    "path": "/documents",
+    "status": 201,
+    "response": {
+      "document_id": 5,
+      "registration_number": "DF-2026-229B3311",
+      "document_type_id": 1,
+      "status_id": 1,
+      "department_id": null,
+      "created_by_user_id": 4,
+      "title": "Учебное заявление для ЛР №8",
+      "description": null,
+      "direction": "Ішкі",
+      "priority": "Қалыпты",
+      "registered_at": "2026-11-25T09:09:23.915112Z",
+      "due_date": null,
+      "completed_at": null,
+      "is_archived": false
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Чтение по идентификатору",
+    "method": "GET",
+    "path": "/documents/5",
+    "status": 200,
+    "response": {
+      "document_id": 5,
+      "registration_number": "DF-2026-229B3311",
+      "document_type_id": 1,
+      "status_id": 1,
+      "department_id": null,
+      "created_by_user_id": 4,
+      "title": "Учебное заявление для ЛР №8",
+      "description": null,
+      "direction": "Ішкі",
+      "priority": "Қалыпты",
+      "registered_at": "2026-11-25T09:09:23.915112Z",
+      "due_date": null,
+      "completed_at": null,
+      "is_archived": false
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Замена полей документа",
+    "method": "PUT",
+    "path": "/documents/5",
+    "status": 200,
+    "response": {
+      "document_id": 5,
+      "registration_number": "DF-2026-229B3311",
+      "document_type_id": 1,
+      "status_id": 1,
+      "department_id": null,
+      "created_by_user_id": 4,
+      "title": "Обновлённое учебное заявление",
+      "description": null,
+      "direction": "Ішкі",
+      "priority": "Қалыпты",
+      "registered_at": "2026-11-25T09:09:23.915112Z",
+      "due_date": null,
+      "completed_at": null,
+      "is_archived": false
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Удаление запрещено исполнителю",
+    "method": "DELETE",
+    "path": "/documents/5",
+    "status": 403,
+    "response": {
+      "detail": "Требуется роль администратора."
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Удаление администратором",
+    "method": "DELETE",
+    "path": "/documents/5",
+    "status": 204,
+    "response": null,
+    "passed": true
+  },
+  {
+    "scenario": "Чтение отсутствующего документа",
+    "method": "GET",
+    "path": "/documents/5",
+    "status": 404,
+    "response": {
+      "detail": "Құжат табылмады"
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Пустые данные",
+    "method": "POST",
+    "path": "/documents",
+    "status": 400,
+    "response": {
+      "detail": "Некорректные данные запроса. Проверьте обязательные поля и формат."
+    },
+    "passed": true
+  },
+  {
+    "scenario": "Некорректный JSON",
+    "method": "POST",
+    "path": "/documents",
+    "status": 400,
+    "response": {
+      "detail": "Некорректные данные запроса. Проверьте обязательные поля и формат."
+    },
+    "passed": true
+  }
+]
