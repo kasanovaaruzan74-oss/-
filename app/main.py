@@ -37,7 +37,7 @@ def create_app(database_engine: Engine = engine, *, auth_required: bool | None =
         secured = request.app.state.auth_required or request.url.path.startswith("/auth/")
         return JSONResponse(
             status_code=400 if secured else 422,
-            content={"detail": "Некорректные данные запроса. Проверьте обязательные поля и формат."},
+            content={"detail": "Сұрау деректері жарамсыз. Міндетті өрістер мен пішімді тексеріңіз."},
         )
 
     @application.get("/", tags=["Жүйе"])

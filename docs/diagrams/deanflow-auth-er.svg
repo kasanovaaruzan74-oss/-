@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1290" height="488" viewBox="0 0 1290 488" role="img">
+<title>Пайдаланушының кіру деректері</title>
+<desc>PK — бастапқы кілт     ·     FK — сыртқы кілт     ·     UNIQUE — бірегей мән</desc>
+<defs>
+    <linearGradient id="card-fill" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#f3f6fa"/>
+        <stop offset="100%" stop-color="#e6ecf3"/>
+    </linearGradient>
+</defs>
+<style>
+    .title { font: 700 65px 'Noto Serif Display', 'DejaVu Serif', serif; fill: #101722; }
+    .legend { font: 500 20px 'Noto Sans', 'DejaVu Sans', sans-serif; fill: #293645; }
+    .card-title { font: 700 26px 'Noto Sans', 'DejaVu Sans', sans-serif; fill: #142031; }
+    .table-name { font: 500 18px 'Noto Sans', 'DejaVu Sans', sans-serif; fill: #536579; }
+    .field { font: 500 19px 'Noto Sans', 'DejaVu Sans', sans-serif; fill: #172336; }
+    .key { font-weight: 700; fill: #233c58; }
+    .card { fill: url(#card-fill); stroke: #c5cfdb; stroke-width: 1.4; }
+    .shadow-soft { fill: #48607a; opacity: 0.055; }
+    .shadow-close { fill: #48607a; opacity: 0.11; }
+    .divider { fill: none; stroke: #bfcbd8; stroke-width: 1.1; }
+    .line { fill: none; stroke: #344152; stroke-width: 2.05; stroke-linejoin: round; }
+    .optional { stroke-dasharray: 7 5; }
+    .junction { fill: #344152; }
+    .cardinality { font: 700 18px 'Noto Sans', 'DejaVu Sans', sans-serif; fill: #19283a; }
+</style>
+<rect width="1290" height="488" fill="white"/>
+<text x="645" y="82" class="title" text-anchor="middle">Пайдаланушының кіру деректері</text>
+<text x="645" y="122" class="legend" text-anchor="middle">PK — бастапқы кілт     ·     FK — сыртқы кілт     ·     UNIQUE — бірегей мән</text>
+<polyline class="line" points="374,271 478,271"/>
+<polyline class="line" points="212,381 212,444 1077,444 1077,357"/>
+<g id="users">
+<rect class="shadow-soft" x="46" y="198" width="330" height="191" rx="15"/>
+<rect class="shadow-close" x="48" y="197" width="326" height="188" rx="13"/>
+<rect class="card" x="48" y="194" width="326" height="187" rx="13"/>
+<text x="72" y="228" class="card-title" text-anchor="start">Пайдаланушылар</text>
+<text x="72" y="253" class="table-name" text-anchor="start">users</text>
+<path class="divider" d="M 72,264 H 350"/>
+<text xml:space="preserve" x="72" y="291" class="field">user_id<tspan class="key">  (PK)</tspan></text>
+<text xml:space="preserve" x="72" y="315" class="field">full_name</text>
+<text xml:space="preserve" x="72" y="339" class="field">email<tspan class="key">  (UNIQUE)</tspan></text>
+<text xml:space="preserve" x="72" y="363" class="field">is_active</text>
+</g>
+<g id="user_credentials">
+<rect class="shadow-soft" x="476" y="198" width="334" height="143" rx="15"/>
+<rect class="shadow-close" x="478" y="197" width="330" height="140" rx="13"/>
+<rect class="card" x="478" y="194" width="330" height="139" rx="13"/>
+<text x="502" y="228" class="card-title" text-anchor="start">Құпиясөздер</text>
+<text x="502" y="253" class="table-name" text-anchor="start">user_credentials</text>
+<path class="divider" d="M 502,264 H 784"/>
+<text xml:space="preserve" x="502" y="291" class="field">user_id<tspan class="key">  (PK / FK)</tspan></text>
+<text xml:space="preserve" x="502" y="315" class="field">password_hash</text>
+</g>
+<g id="login_sessions">
+<rect class="shadow-soft" x="910" y="198" width="334" height="167" rx="15"/>
+<rect class="shadow-close" x="912" y="197" width="330" height="164" rx="13"/>
+<rect class="card" x="912" y="194" width="330" height="163" rx="13"/>
+<text x="936" y="228" class="card-title" text-anchor="start">Кіру сессиялары</text>
+<text x="936" y="253" class="table-name" text-anchor="start">login_sessions</text>
+<path class="divider" d="M 936,264 H 1218"/>
+<text xml:space="preserve" x="936" y="291" class="field">token_hash<tspan class="key">  (PK)</tspan></text>
+<text xml:space="preserve" x="936" y="315" class="field">user_id<tspan class="key">  (FK)</tspan></text>
+<text xml:space="preserve" x="936" y="339" class="field">expires_at</text>
+</g>
+<text x="387" y="262" class="cardinality" text-anchor="start">1</text>
+<text x="463" y="291" class="cardinality" text-anchor="end">0..1</text>
+<text x="226" y="402" class="cardinality" text-anchor="start">1</text>
+<text x="1091" y="378" class="cardinality" text-anchor="start">0..N</text>
+</svg>

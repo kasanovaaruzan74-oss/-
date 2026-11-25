@@ -32,7 +32,7 @@ def validate_password(password: str) -> None:
         or not any(character.isalpha() for character in password)
         or not any(character.isdigit() for character in password)
     ):
-        raise ValueError("Пароль должен содержать от 12 до 128 символов, букву и цифру.")
+        raise ValueError("Құпиясөз 12–128 таңбадан тұруы және кемінде бір әріп пен бір цифрды қамтуы керек.")
 
 
 def _password_digest(password: str, salt: bytes) -> bytes:
@@ -69,7 +69,7 @@ def issue_token(session: Session, user: AppUser) -> str:
 def configure_demo_admin(session: Session, email: str, password: str) -> None:
     email = email.strip().lower()
     if not email or "@" not in email:
-        raise ValueError("Некорректный e-mail администратора.")
+        raise ValueError("Әкімшінің электрондық пошта мекенжайы жарамсыз.")
     password_hash = hash_password(password)
     role = session.exec(select(Role).where(Role.role_name == ADMIN_ROLE)).first()
     if role is None:
@@ -78,11 +78,11 @@ def configure_demo_admin(session: Session, email: str, password: str) -> None:
         session.flush()
     user = session.exec(select(AppUser).where(AppUser.email == email)).first()
     if user is None:
-        user = AppUser(role_id=role.role_id, email=email, full_name="Администратор")
+        user = AppUser(role_id=role.role_id, email=email, full_name="Әкімші")
         session.add(user)
         session.flush()
     if user.role_id != role.role_id:
-        raise ValueError("Указанный аккаунт не является администратором.")
+        raise ValueError("Көрсетілген тіркелгіде әкімші рөлі жоқ.")
     credential = session.get(UserCredential, user.user_id)
     if credential is None:
         session.add(UserCredential(user_id=user.user_id, password_hash=password_hash))
@@ -95,7 +95,7 @@ def configure_demo_admin(session: Session, email: str, password: str) -> None:
 def unauthorized() -> HTTPException:
     return HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Требуется вход или указаны неверные данные.",
+        detail="Жүйеге кіріңіз немесе кіру деректерін тексеріңіз.",
         headers={"WWW-Authenticate": "Bearer"},
     )
 
@@ -136,4 +136,4 @@ def require_document_admin(
     principal: Annotated[Principal | None, Depends(document_principal)],
 ) -> None:
     if principal is not None and principal.role != ADMIN_ROLE:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Требуется роль администратора.")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Бұл әрекетке әкімші рөлі қажет.")

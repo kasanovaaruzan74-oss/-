@@ -1,4 +1,4 @@
-"""Record real HTTP responses from a disposable local Lab 8 service."""
+"""8-зертханалық жұмыс үшін жергілікті уақытша сервердің нақты HTTP жауаптарын жазу."""
 
 import argparse
 import json
@@ -14,7 +14,7 @@ def arguments():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base-url", default="http://127.0.0.1:8000")
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--server-log", type=Path, help="Check an existing Uvicorn log for credential redaction")
+    parser.add_argument("--server-log", type=Path, help="Uvicorn журналында құпия деректердің жарияланбағанын тексеру")
     args = parser.parse_args()
     base = urlsplit(args.base_url)
     if (
@@ -26,7 +26,7 @@ def arguments():
         or base.query
         or base.fragment
     ):
-        parser.error("--base-url must point to a disposable local HTTP service on loopback")
+        parser.error("--base-url жергілікті loopback мекенжайындағы уақытша HTTP серверін көрсетуі тиіс")
     return args
 
 
@@ -60,7 +60,7 @@ class ApiExamples:
 
     def login(self, email, password):
         response = self.call("POST", "/auth/login", json={"email": email, "password": password})
-        assert response.status_code == 200, "Не удалось войти в учебную учётную запись"
+        assert response.status_code == 200, "Оқу тіркелгісіне кіру мүмкін болмады"
         return {"Authorization": "Bearer " + response.json()["access_token"]}
 
 
@@ -70,37 +70,37 @@ def main():
     password = f"Lab8!Z2-{secrets.token_urlsafe(16)}"
     registration = {
         "email": f"lab08-{secrets.token_hex(5)}@example.invalid",
-        "full_name": "Учебный исполнитель",
+        "full_name": "Оқу орындаушысы",
         "password": password,
     }
     admin_password = os.environ["DEANFLOW_ADMIN_PASSWORD"]
     admin = examples.login(os.environ.get("DEANFLOW_ADMIN_EMAIL", "dana@example.invalid"), admin_password)
-    for name, bad_password in [("Пустой пароль", ""), ("Слабый пароль", "12345")]:
+    for name, bad_password in [("Бос құпиясөз", ""), ("Әлсіз құпиясөз", "12345")]:
         examples.check(name, "POST", "/auth/register", 400, json={**registration, "password": bad_password})
     examples.check(
-        "Неизвестный логин",
+        "Белгісіз логин",
         "POST",
         "/auth/login",
         401,
         json={"email": "missing@example.invalid", "password": password},
     )
-    examples.check("Регистрация исполнителя", "POST", "/auth/register", 201, json=registration)
+    examples.check("Орындаушыны тіркеу", "POST", "/auth/register", 201, json=registration)
     user = examples.login(registration["email"], password)
-    examples.check("Чтение профиля исполнителя", "GET", "/auth/me", 200, headers=user)
+    examples.check("Орындаушының профилін оқу", "GET", "/auth/me", 200, headers=user)
 
-    examples.check("Доступ без токена", "GET", "/documents", 401)
-    examples.check("Неизвестный идентификатор пользователя", "GET", "/auth/users/999999", 404, headers=admin)
-    examples.check("Чтение списка документов", "GET", "/documents?limit=1", 200, headers=user)
+    examples.check("Токенсіз қол жеткізу", "GET", "/documents", 401)
+    examples.check("Пайдаланушының белгісіз идентификаторы", "GET", "/auth/users/999999", 404, headers=admin)
+    examples.check("Құжаттар тізімін оқу", "GET", "/documents?limit=1", 200, headers=user)
     lookup = examples.call("GET", "/documents/lookups", headers=user)
     assert lookup.status_code == 200
     references = lookup.json()
     payload = {
-        "title": "Учебное заявление для ЛР №8",
+        "title": "№ 8 зертханалық жұмысқа арналған оқу өтініші",
         "document_type_id": references["types"][0]["id"],
         "status_id": references["statuses"][0]["id"],
     }
     created = examples.check(
-        "Создание документа",
+        "Құжат жасау",
         "POST",
         "/documents",
         201,
@@ -108,24 +108,24 @@ def main():
         json=payload,
     )
     path = f"/documents/{created['document_id']}"
-    document = examples.check("Чтение по идентификатору", "GET", path, 200, headers=user)
+    document = examples.check("Идентификатор бойынша оқу", "GET", path, 200, headers=user)
     assert document == created
     replaced = examples.check(
-        "Замена полей документа",
+        "Құжат өрістерін ауыстыру",
         "PUT",
         path,
         200,
         headers=user,
-        json={**payload, "title": "Обновлённое учебное заявление"},
+        json={**payload, "title": "Жаңартылған оқу өтініші"},
     )
-    assert replaced["title"] == "Обновлённое учебное заявление"
+    assert replaced["title"] == "Жаңартылған оқу өтініші"
     assert replaced["registration_number"] == created["registration_number"]
-    examples.check("Удаление запрещено исполнителю", "DELETE", path, 403, headers=user)
-    examples.check("Удаление администратором", "DELETE", path, 204, headers=admin)
-    examples.check("Чтение отсутствующего документа", "GET", path, 404, headers=user)
-    examples.check("Пустые данные", "POST", "/documents", 400, headers=user, json={})
+    examples.check("Орындаушыға жоюға тыйым салынған", "DELETE", path, 403, headers=user)
+    examples.check("Әкімшінің құжатты жоюы", "DELETE", path, 204, headers=admin)
+    examples.check("Жоқ құжатты оқу", "GET", path, 404, headers=user)
+    examples.check("Бос деректер", "POST", "/documents", 400, headers=user, json={})
     examples.check(
-        "Некорректный JSON",
+        "Жарамсыз JSON",
         "POST",
         "/documents",
         400,
@@ -146,10 +146,10 @@ def main():
         assert "POST /auth/login HTTP/" in log
         assert "POST /auth/register HTTP/" in log
         assert all(secret not in log for secret in credentials)
-        print("Журнал Uvicorn содержит записи запросов. Пароли и токены в журнале и ответах отсутствуют.")
+        print("Uvicorn журналы сұрауларды тіркеді. Журнал мен жауаптарда құпиясөздер мен токендер жоқ.")
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(evidence + "\n", encoding="utf-8")
-    print(f"Проверено сценариев HTTP: {len(examples.results)}")
+    print(f"Тексерілген HTTP сценарийлерінің саны: {len(examples.results)}")
 
 
 if __name__ == "__main__":

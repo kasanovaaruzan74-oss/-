@@ -1,82 +1,82 @@
 [
   {
-    "scenario": "Пустой пароль",
+    "scenario": "Бос құпиясөз",
     "method": "POST",
     "path": "/auth/register",
     "status": 400,
     "response": {
-      "detail": "Некорректные данные запроса. Проверьте обязательные поля и формат."
+      "detail": "Сұрау деректері жарамсыз. Міндетті өрістер мен пішімді тексеріңіз."
     },
     "passed": true
   },
   {
-    "scenario": "Слабый пароль",
+    "scenario": "Әлсіз құпиясөз",
     "method": "POST",
     "path": "/auth/register",
     "status": 400,
     "response": {
-      "detail": "Некорректные данные запроса. Проверьте обязательные поля и формат."
+      "detail": "Сұрау деректері жарамсыз. Міндетті өрістер мен пішімді тексеріңіз."
     },
     "passed": true
   },
   {
-    "scenario": "Неизвестный логин",
+    "scenario": "Белгісіз логин",
     "method": "POST",
     "path": "/auth/login",
     "status": 401,
     "response": {
-      "detail": "Требуется вход или указаны неверные данные."
+      "detail": "Жүйеге кіріңіз немесе кіру деректерін тексеріңіз."
     },
     "passed": true
   },
   {
-    "scenario": "Регистрация исполнителя",
+    "scenario": "Орындаушыны тіркеу",
     "method": "POST",
     "path": "/auth/register",
     "status": 201,
     "response": {
       "user_id": 4,
-      "email": "lab08-b64c0971ea@example.invalid",
-      "full_name": "Учебный исполнитель",
+      "email": "lab08-77eddcbfb8@example.invalid",
+      "full_name": "Оқу орындаушысы",
       "role": "Executor"
     },
     "passed": true
   },
   {
-    "scenario": "Чтение профиля исполнителя",
+    "scenario": "Орындаушының профилін оқу",
     "method": "GET",
     "path": "/auth/me",
     "status": 200,
     "response": {
       "user_id": 4,
-      "email": "lab08-b64c0971ea@example.invalid",
-      "full_name": "Учебный исполнитель",
+      "email": "lab08-77eddcbfb8@example.invalid",
+      "full_name": "Оқу орындаушысы",
       "role": "Executor"
     },
     "passed": true
   },
   {
-    "scenario": "Доступ без токена",
+    "scenario": "Токенсіз қол жеткізу",
     "method": "GET",
     "path": "/documents",
     "status": 401,
     "response": {
-      "detail": "Требуется вход или указаны неверные данные."
+      "detail": "Жүйеге кіріңіз немесе кіру деректерін тексеріңіз."
     },
     "passed": true
   },
   {
-    "scenario": "Неизвестный идентификатор пользователя",
+    "scenario": "Пайдаланушының белгісіз идентификаторы",
     "method": "GET",
     "path": "/auth/users/999999",
     "status": 404,
     "response": {
-      "detail": "Пользователь не найден."
+      "detail": "Пайдаланушы табылмады."
     },
     "passed": true
   },
   {
-    "scenario": "Чтение списка документов",
+    "scenario": "Құжаттар тізімін оқу",
     "method": "GET",
     "path": "/documents?limit=1",
     "status": 200,
@@ -92,7 +92,7 @@
         "description": "Оқу мақсатындағы үлгі дерек.",
         "direction": "Ішкі",
         "priority": "Жоғары",
-        "registered_at": "2026-11-24T09:09:22.248523Z",
+        "registered_at": "2026-11-24T09:28:20.883790Z",
         "due_date": "2026-12-01",
         "completed_at": null,
         "is_archived": false
@@ -101,22 +101,22 @@
     "passed": true
   },
   {
-    "scenario": "Создание документа",
+    "scenario": "Құжат жасау",
     "method": "POST",
     "path": "/documents",
     "status": 201,
     "response": {
       "document_id": 5,
-      "registration_number": "DF-2026-229B3311",
+      "registration_number": "DF-2026-767DB453",
       "document_type_id": 1,
       "status_id": 1,
       "department_id": null,
       "created_by_user_id": 4,
-      "title": "Учебное заявление для ЛР №8",
+      "title": "№ 8 зертханалық жұмысқа арналған оқу өтініші",
       "description": null,
       "direction": "Ішкі",
       "priority": "Қалыпты",
-      "registered_at": "2026-11-25T09:09:23.915112Z",
+      "registered_at": "2026-11-25T09:28:22.415822Z",
       "due_date": null,
       "completed_at": null,
       "is_archived": false
@@ -124,22 +124,22 @@
     "passed": true
   },
   {
-    "scenario": "Чтение по идентификатору",
+    "scenario": "Идентификатор бойынша оқу",
     "method": "GET",
     "path": "/documents/5",
     "status": 200,
     "response": {
       "document_id": 5,
-      "registration_number": "DF-2026-229B3311",
+      "registration_number": "DF-2026-767DB453",
       "document_type_id": 1,
       "status_id": 1,
       "department_id": null,
       "created_by_user_id": 4,
-      "title": "Учебное заявление для ЛР №8",
+      "title": "№ 8 зертханалық жұмысқа арналған оқу өтініші",
       "description": null,
       "direction": "Ішкі",
       "priority": "Қалыпты",
-      "registered_at": "2026-11-25T09:09:23.915112Z",
+      "registered_at": "2026-11-25T09:28:22.415822Z",
       "due_date": null,
       "completed_at": null,
       "is_archived": false
@@ -147,22 +147,22 @@
     "passed": true
   },
   {
-    "scenario": "Замена полей документа",
+    "scenario": "Құжат өрістерін ауыстыру",
     "method": "PUT",
     "path": "/documents/5",
     "status": 200,
     "response": {
       "document_id": 5,
-      "registration_number": "DF-2026-229B3311",
+      "registration_number": "DF-2026-767DB453",
       "document_type_id": 1,
       "status_id": 1,
       "department_id": null,
       "created_by_user_id": 4,
-      "title": "Обновлённое учебное заявление",
+      "title": "Жаңартылған оқу өтініші",
       "description": null,
       "direction": "Ішкі",
       "priority": "Қалыпты",
-      "registered_at": "2026-11-25T09:09:23.915112Z",
+      "registered_at": "2026-11-25T09:28:22.415822Z",
       "due_date": null,
       "completed_at": null,
       "is_archived": false
@@ -170,17 +170,17 @@
     "passed": true
   },
   {
-    "scenario": "Удаление запрещено исполнителю",
+    "scenario": "Орындаушыға жоюға тыйым салынған",
     "method": "DELETE",
     "path": "/documents/5",
     "status": 403,
     "response": {
-      "detail": "Требуется роль администратора."
+      "detail": "Бұл әрекетке әкімші рөлі қажет."
     },
     "passed": true
   },
   {
-    "scenario": "Удаление администратором",
+    "scenario": "Әкімшінің құжатты жоюы",
     "method": "DELETE",
     "path": "/documents/5",
     "status": 204,
@@ -188,7 +188,7 @@
     "passed": true
   },
   {
-    "scenario": "Чтение отсутствующего документа",
+    "scenario": "Жоқ құжатты оқу",
     "method": "GET",
     "path": "/documents/5",
     "status": 404,
@@ -198,22 +198,22 @@
     "passed": true
   },
   {
-    "scenario": "Пустые данные",
+    "scenario": "Бос деректер",
     "method": "POST",
     "path": "/documents",
     "status": 400,
     "response": {
-      "detail": "Некорректные данные запроса. Проверьте обязательные поля и формат."
+      "detail": "Сұрау деректері жарамсыз. Міндетті өрістер мен пішімді тексеріңіз."
     },
     "passed": true
   },
   {
-    "scenario": "Некорректный JSON",
+    "scenario": "Жарамсыз JSON",
     "method": "POST",
     "path": "/documents",
     "status": 400,
     "response": {
-      "detail": "Некорректные данные запроса. Проверьте обязательные поля и формат."
+      "detail": "Сұрау деректері жарамсыз. Міндетті өрістер мен пішімді тексеріңіз."
     },
     "passed": true
   }

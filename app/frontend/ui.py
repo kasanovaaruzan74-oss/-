@@ -33,7 +33,7 @@ def api_request(
 def show_api_error(error: requests.RequestException, *, signing_in: bool = False) -> None:
     response = error.response
     if response is None:
-        st.error("Серверге қосылу мүмкін болмады. FastAPI іске қосылғанын тексеріңіз.")
+        st.error("Серверге қосылу мүмкін болмады. FastAPI қызметінің жұмыс істеп тұрғанын тексеріңіз.")
         return
 
     status_code = response.status_code
@@ -46,17 +46,17 @@ def show_api_error(error: requests.RequestException, *, signing_in: bool = False
     messages = {
         400: "Енгізілген деректерді тексеріңіз.",
         401: "Электрондық пошта немесе құпиясөз қате.",
-        403: "Бұл әрекетке рұқсат жоқ.",
+        403: "Бұл әрекетті орындауға рұқсатыңыз жоқ.",
         404: "Жазба табылмады. Тізімді жаңартыңыз.",
         409: "Деректер өзгерді. Тізімді жаңартып, әрекетті қайталаңыз.",
         422: "Енгізілген деректерді және анықтамалық мәндерді тексеріңіз.",
-        429: "Сұраныс тым көп. Біраздан кейін қайталап көріңіз.",
+        429: "Сұраныс саны тым көп. Біраздан кейін қайталап көріңіз.",
     }
     st.error(messages.get(status_code, "Сервер сұранысты орындай алмады."))
 
 
 st.set_page_config(page_title="DeanFlow құжаттары", page_icon="📄", layout="wide")
-st.title("DeanFlow құжат айналымы")
+st.title("DeanFlow — деканаттың құжат айналымы")
 
 notice = st.session_state.pop("api_notice", None)
 if notice:
@@ -99,7 +99,7 @@ if auth_required:
             try:
                 api_request("POST", "/auth/logout", token=token)
             except requests.RequestException:
-                st.session_state["api_notice"] = "Сервер сеансты жаба алмады. Жергілікті сеанс жабылды."
+                st.session_state["api_notice"] = "Сервердегі сеансты аяқтау мүмкін болмады. Осы беттегі сеанс аяқталды."
             st.session_state.pop("access_token", None)
             st.session_state.pop("success_notice", None)
             st.rerun()
@@ -114,15 +114,15 @@ except requests.RequestException as error:
     show_api_error(error)
     st.stop()
 
-status_by_name = {"Барлық мәртебе": None}
+status_by_name = {"Барлық мәртебелер": None}
 status_by_name.update({item["name"]: item["code"] for item in lookups["statuses"]})
 type_by_name = {item["name"]: item["id"] for item in lookups["types"]}
-department_by_name = {"Бөлім таңдалмады": None}
+department_by_name = {"Бөлім көрсетілмеген": None}
 department_by_name.update({item["name"]: item["id"] for item in lookups["departments"]})
 
 with st.sidebar:
     st.subheader("Іздеу және сүзу")
-    search = st.text_input("Тіркеу нөмірі немесе тақырып", placeholder="Мысалы: анықтама", max_chars=120)
+    search = st.text_input("Тіркеу нөмірі немесе құжат тақырыбы", placeholder="Мысалы: анықтама", max_chars=120)
     selected_status = st.selectbox("Мәртебесі", list(status_by_name))
     selected_direction = st.selectbox("Бағыты", ["Барлығы", "Кіріс", "Шығыс", "Ішкі"])
     st.button("Тізімді жаңарту")
@@ -163,7 +163,7 @@ if not type_by_name:
 else:
     with st.form("create_document", clear_on_submit=True):
         title = st.text_input("Құжат тақырыбы", max_chars=250)
-        description = st.text_area("Қысқаша сипаттамасы", max_chars=3000)
+        description = st.text_area("Қысқаша сипаттама", max_chars=3000)
         col1, col2 = st.columns(2)
         with col1:
             type_name = st.selectbox("Құжат түрі", list(type_by_name))
@@ -203,7 +203,9 @@ if can_delete and rows:
         return f"{row['registration_number']} · {row['title']}"
 
     with st.form("delete_document", clear_on_submit=True):
-        document_id = st.selectbox("Құжат", list(by_id), index=None, format_func=document_label)
+        document_id = st.selectbox(
+            "Құжат", list(by_id), index=None, format_func=document_label, placeholder="Құжатты таңдаңыз"
+        )
         confirmed = st.checkbox("Құжатты жоюды растаймын")
         delete_submitted = st.form_submit_button("Жою")
 

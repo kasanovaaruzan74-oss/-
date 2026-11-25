@@ -23,7 +23,7 @@ from app.security import (
 )
 
 
-router = APIRouter(prefix="/auth", tags=["Авторизация"])
+router = APIRouter(prefix="/auth", tags=["Тіркелгі және кіру"])
 
 
 class LoginData(BaseModel):
@@ -82,7 +82,7 @@ def register(payload: RegisterData, session: Annotated[Session, Depends(get_sess
         session.commit()
     except IntegrityError:
         session.rollback()
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Не удалось зарегистрировать аккаунт.") from None
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Тіркелгіні тіркеу мүмкін болмады.") from None
     return profile
 
 
@@ -115,10 +115,10 @@ def read_user(
     session: Annotated[Session, Depends(get_session)],
 ) -> PublicUser:
     if principal.user.user_id != user_id and principal.role != ADMIN_ROLE:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Недостаточно прав.")
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Құқық жеткіліксіз.")
     user = session.get(AppUser, user_id)
     if user is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Пользователь не найден.")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Пайдаланушы табылмады.")
     return user_response(user, user.role.role_name)
 
 

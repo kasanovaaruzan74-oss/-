@@ -161,7 +161,7 @@ def _commit(session: Session) -> None:
         session.commit()
     except IntegrityError:
         session.rollback()
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Конфликт данных.") from None
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Деректер қайшылығы анықталды.") from None
 
 
 def _validate_references(

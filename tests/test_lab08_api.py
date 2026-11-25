@@ -14,7 +14,7 @@ from app.security import configure_demo_admin
 
 ADMIN_EMAIL = "admin-test@example.invalid"
 ACCOUNT_EMAIL = "executor-test@example.invalid"
-ACCOUNT_NAME = "Учебный исполнитель"
+ACCOUNT_NAME = "Оқу орындаушысы"
 
 
 def strong_password() -> str:
@@ -42,9 +42,9 @@ def protected_client(tmp_path, admin_password) -> Iterator[TestClient]:
             with Session(database_engine) as session:
                 session.add_all(
                     [
-                        Department(department_name="Учебный отдел"),
-                        DocumentStatus(status_name="Зарегистрирован", status_code="REGISTERED"),
-                        DocumentType(type_name="Заявление", code="REQUEST"),
+                        Department(department_name="Оқу бөлімі"),
+                        DocumentStatus(status_name="Тіркелді", status_code="REGISTERED"),
+                        DocumentType(type_name="Өтініш", code="REQUEST"),
                     ]
                 )
                 configure_demo_admin(session, ADMIN_EMAIL, admin_password)
@@ -84,8 +84,8 @@ def admin_headers(protected_client, admin_password):
 @pytest.fixture
 def document_data():
     return {
-        "title": "Заявление на выдачу справки",
-        "description": "Учебная проверка регистрации",
+        "title": "Анықтама беру туралы өтініш",
+        "description": "Тіркеуді тексеру",
         "document_type_id": 1,
         "status_id": 1,
         "department_id": 1,
@@ -128,13 +128,13 @@ def test_put_replaces_mutable_fields(protected_client, executor_headers, documen
     result = protected_client.put(
         path,
         headers=executor_headers,
-        json={"title": "Обновлённое заявление", "document_type_id": 1},
+        json={"title": "Жаңартылған өтініш", "document_type_id": 1},
     )
 
     assert result.status_code == 200, result.text
     body = result.json()
     assert body["document_id"] == created["document_id"]
-    assert body["title"] == "Обновлённое заявление"
+    assert body["title"] == "Жаңартылған өтініш"
     assert body["description"] is None
     assert body["due_date"] is None
     assert body["department_id"] is None
@@ -186,7 +186,7 @@ def test_malformed_json_is_rejected_without_reflecting_body(protected_client, ex
     assert marker not in response.text
 
 
-@pytest.mark.parametrize("title", ["Три", "А" * 250], ids=["min-length", "max-length"])
+@pytest.mark.parametrize("title", ["Акт", "А" * 250], ids=["min-length", "max-length"])
 def test_document_title_accepts_boundary_lengths(protected_client, executor_headers, document_data, title):
     created = create_document(protected_client, executor_headers, {**document_data, "title": title})
 

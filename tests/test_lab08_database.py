@@ -15,12 +15,12 @@ def database(tmp_path) -> Iterator[tuple]:
     try:
         with Session(engine) as session:
             role = Role(role_name="Executor")
-            document_type = DocumentType(type_name="Заявление", code="REQUEST")
-            status = DocumentStatus(status_name="Зарегистрирован", status_code="REGISTERED")
+            document_type = DocumentType(type_name="Өтініш", code="REQUEST")
+            status = DocumentStatus(status_name="Тіркелді", status_code="REGISTERED")
             session.add_all([role, document_type, status])
             session.flush()
             user = AppUser(
-                full_name="Тестовый исполнитель", email="db-test@example.invalid", role_id=role.role_id
+                full_name="Сынақ орындаушысы", email="db-test@example.invalid", role_id=role.role_id
             )
             session.add(user)
             session.flush()
@@ -39,7 +39,7 @@ def test_database_persists_document_crud_between_sessions(database):
     engine, ids = database
 
     with Session(engine) as session:
-        document = DeanDocument(registration_number="DF-DB-CRUD", title="Начальное заявление", **ids)
+        document = DeanDocument(registration_number="DF-DB-CRUD", title="Бастапқы өтініш", **ids)
         session.add(document)
         session.commit()
         session.refresh(document)
@@ -47,14 +47,14 @@ def test_database_persists_document_crud_between_sessions(database):
 
     with Session(engine) as session:
         document = session.get(DeanDocument, document_id)
-        assert document.title == "Начальное заявление"
+        assert document.title == "Бастапқы өтініш"
         assert document.created_by.email == "db-test@example.invalid"
-        document.title = "Обновлённое заявление"
+        document.title = "Жаңартылған өтініш"
         session.commit()
 
     with Session(engine) as session:
         document = session.get(DeanDocument, document_id)
-        assert document.title == "Обновлённое заявление"
+        assert document.title == "Жаңартылған өтініш"
         session.delete(document)
         session.commit()
 
@@ -67,10 +67,10 @@ def test_database_rolls_back_previously_flushed_insert_after_constraint_error(da
     registration = "DF-DB-ROLLBACK"
 
     with Session(engine) as session:
-        session.add(DeanDocument(registration_number=registration, title="Первая запись", **ids))
+        session.add(DeanDocument(registration_number=registration, title="Алғашқы жазба", **ids))
         session.flush()
         assert session.exec(select(DeanDocument)).one().registration_number == registration
-        session.add(DeanDocument(registration_number=registration, title="Повтор номера", **ids))
+        session.add(DeanDocument(registration_number=registration, title="Қайталанған нөмір", **ids))
 
         with pytest.raises(IntegrityError) as error:
             session.flush()
@@ -82,8 +82,8 @@ def test_database_rolls_back_previously_flushed_insert_after_constraint_error(da
     with Session(engine) as session:
         assert session.exec(select(DeanDocument)).all() == []
         assert session.get(AppUser, ids["created_by_user_id"]) is not None
-        session.add(DeanDocument(registration_number=registration, title="Новая транзакция", **ids))
+        session.add(DeanDocument(registration_number=registration, title="Жаңа транзакция", **ids))
         session.commit()
 
     with Session(engine) as session:
-        assert session.exec(select(DeanDocument)).one().title == "Новая транзакция"
+        assert session.exec(select(DeanDocument)).one().title == "Жаңа транзакция"
